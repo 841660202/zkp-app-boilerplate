@@ -1,15 +1,8 @@
-import { Proof } from "circuits";
-import { useRecord } from "../hooks/useContract";
+import { Proof } from 'circuits';
+import { useRecord } from '../hooks/useContract';
 
-function SendTx({
-  address,
-  publicSignals,
-  proof,
-}: {
-  address: string;
-  publicSignals?: [bigint, bigint, bigint];
-  proof?: Proof;
-}) {
+function SendTx({ address, publicSignals, proof }: { address: string; publicSignals?: [bigint, bigint, bigint]; proof?: Proof }) {
+  console.log('publicSignals', publicSignals);
   const { txState, record } = useRecord(address);
   return (
     <div>
@@ -20,9 +13,9 @@ function SendTx({
       <button
         disabled={!publicSignals || !proof || !record}
         onClick={() => {
-          if (!publicSignals) alert("Public signals are not ready");
-          else if (!proof) alert("ZKP is not ready");
-          else if (!record) alert("Wallet is not connected");
+          if (!publicSignals) alert('Public signals are not ready');
+          else if (!proof) alert('ZKP is not ready');
+          else if (!record) alert('Wallet is not connected');
           else {
             record({
               publicSignals,

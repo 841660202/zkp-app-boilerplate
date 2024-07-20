@@ -1,7 +1,7 @@
-import { useMemo, useCallback, useEffect, useState } from "react";
-import { useEthers } from "@usedapp/core";
-import { ZkApp__factory } from "contracts";
-import { BigNumber, BigNumberish } from "ethers";
+import { useMemo, useCallback, useEffect, useState } from 'react';
+import { useEthers } from '@usedapp/core';
+import { ZkApp__factory } from 'contracts';
+import { BigNumber, BigNumberish } from 'ethers';
 
 export const useZKApp = (address: string) => {
   const { account, library, chainId } = useEthers();
@@ -50,9 +50,9 @@ export const useTotalRecords = (address: string) => {
 
   useEffect(() => {
     fetchTotalRecords();
-    library?.on("block", fetchTotalRecords);
+    library?.on('block', fetchTotalRecords);
     return () => {
-      library?.off("block", fetchTotalRecords);
+      library?.off('block', fetchTotalRecords);
     };
   }, [address, library, chainId, fetchTotalRecords]);
 
@@ -60,11 +60,11 @@ export const useTotalRecords = (address: string) => {
 };
 
 export enum TxState {
-  NONE = "NONE",
-  PENDING = "PENDING",
-  CONFIRMED = "CONFIRMED",
-  FAILED = "FAILED",
-  CANCELLED = "CANCELLED",
+  NONE = 'NONE',
+  PENDING = 'PENDING',
+  CONFIRMED = 'CONFIRMED',
+  FAILED = 'FAILED',
+  CANCELLED = 'CANCELLED',
 }
 
 /**
@@ -99,7 +99,10 @@ export const useRecord = (address: string) => {
             .then(() => setTxState(TxState.CONFIRMED))
             .catch(() => setTxState(TxState.FAILED));
         })
-        .catch(() => setTxState(TxState.CANCELLED));
+        .catch((res) => {
+          console.error('res', res);
+          setTxState(TxState.CANCELLED);
+        });
     },
     [library, chainId, account, zkApp]
   );

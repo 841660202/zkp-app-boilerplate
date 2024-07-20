@@ -1,6 +1,6 @@
-import { EdDSASignature } from "circuits/src/eddsa";
-import useEdDSA from "../hooks/useEdDSA";
-import { BigNumberish } from "ethers";
+import { EdDSASignature } from 'circuits/src/eddsa';
+import useEdDSA from '../hooks/useEdDSA';
+import { BigNumberish } from 'ethers';
 
 function SignEdDSA({
   privKey,
@@ -17,8 +17,9 @@ function SignEdDSA({
       <button
         disabled={!eddsa}
         onClick={async () => {
-          if (!eddsa) alert("EdDSA is not set");
+          if (!eddsa) alert('EdDSA is not set');
           else {
+            console.log('sign');
             eddsa.sign(message).then(onResult);
           }
         }}
